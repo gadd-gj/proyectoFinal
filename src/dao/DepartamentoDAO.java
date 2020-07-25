@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import conexiondb.ConexionDB;
 import interfaz.HibernateUtil;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 import pojo.Departamento;
@@ -27,7 +23,6 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
 
     @Override
     public boolean guardar(Departamento pojo) {
-
         boolean res = false;
 
         try {
@@ -45,14 +40,15 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
 
             res = true;
 
-        } catch (ConstraintViolationException cve) {
-
+       } catch (ConstraintViolationException cve) {
+//
             session.getTransaction().rollback();
             System.out.println("No se ha podido finalizar la transacción");
             return res;
-
-        }
+//
+       }
         return res;
+        
     }
 
     @Override
@@ -110,5 +106,11 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
 
         }
         return res;
+        
+    }
+
+    @Override
+    public List bucar(String clave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

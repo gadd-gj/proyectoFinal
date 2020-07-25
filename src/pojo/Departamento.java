@@ -9,13 +9,13 @@ import javax.persistence.Table;
 @Table(name = "departamentos")
 public class Departamento {
 
-    @Column
-    private String nombre;
-
     @Id
     @Column
     private String clave;
-
+    
+    @Column
+    private String nombre;
+    
     @Column
     private String precio;
 

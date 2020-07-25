@@ -2,6 +2,7 @@ package dao;
 
 import conexiondb.ConexionDB;
 import interfaz.HibernateUtil;
+import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -106,6 +107,12 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
         }
 
         return res;
+        
+    }
+
+    @Override
+    public List bucar(String clave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

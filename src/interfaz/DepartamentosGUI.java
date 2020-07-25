@@ -180,7 +180,7 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
 
         } else {
 
-            IDAOGeneral daod = FactoryMethod.create(FactoryMethod.TypeDAO.PERSONA);
+            IDAOGeneral daod = FactoryMethod.create(FactoryMethod.TypeDAO.DEPARTAMENTO);
             Departamento d = new Departamento();
             String claveTemp = clave.getText();
 
