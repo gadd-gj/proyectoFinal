@@ -74,6 +74,11 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
         btoModificar.setFocusable(false);
         btoModificar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btoModificar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btoModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btoModificarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btoModificar);
 
         btoEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/basura.png"))); // NOI18N
@@ -81,6 +86,11 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
         btoEliminar.setFocusable(false);
         btoEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btoEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btoEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btoEliminarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btoEliminar);
 
         jLabel1.setText("Clave");
@@ -191,6 +201,27 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
         daop.guardar(p);
         
     }//GEN-LAST:event_btoGuardarActionPerformed
+
+    private void btoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoEliminarActionPerformed
+        // TODO add your handling code here:
+         IDAOGeneral daop = FactoryMethod.create(FactoryMethod.TypeDAO.PERSONA);
+        Persona p = new Persona();
+        String claveTemp = clave.getText();
+        
+        p.setClave(claveTemp);
+        
+    
+        
+        
+        
+        daop.borrar(p);
+        
+        
+    }//GEN-LAST:event_btoEliminarActionPerformed
+
+    private void btoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btoModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

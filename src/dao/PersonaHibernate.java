@@ -24,6 +24,22 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
     public Transaction getTransaction() {
         return transaction;
     }
+    
+    @Override
+    public boolean borrar(Persona pojo){
+        boolean centinela = false;
+        
+        try{
+            session.beginTransaction();
+            session.delete(pojo);
+            session.getTransaction().commit();
+            centinela = true;
+        }catch(Exception e){
+            System.out.println("La puta madre, no funciono, we"+e.getMessage());
+        }
+        
+        return centinela ;
+    }
 
     @Override
     public boolean guardar(Persona pojo) {
@@ -34,7 +50,7 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
             session.beginTransaction();
 
             System.out.println("--- Transacción iniciada ---");
-
+               
             session.save(pojo);
 
             session.getTransaction().commit();

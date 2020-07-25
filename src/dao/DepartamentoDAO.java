@@ -24,4 +24,9 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
         res = con.execute(sql);
         return res;
     }
+
+    @Override
+    public boolean borrar(Departamento pojo) {
+        return true;
+    }
 }
