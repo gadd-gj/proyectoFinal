@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 public class Principal extends javax.swing.JFrame {
     
     PersonasGUI per = PersonasGUI.getInstance();
-    Departamentos dep = Departamentos.getInstance();
+    DepartamentosGUI dep = DepartamentosGUI.getInstance();
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);

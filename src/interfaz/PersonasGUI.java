@@ -2,6 +2,7 @@ package interfaz;
 
 import dao.IDAOGeneral;
 import factorymetod.FactoryMethod;
+import javax.swing.JOptionPane;
 import pojo.Persona;
 
 
@@ -187,36 +188,37 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoGuardarActionPerformed
+        if (clave.getText().isEmpty() || nombre.getText().isEmpty() || direccion.getText().isEmpty() || telefono.getText().isEmpty() || departamento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorio");
+        }else{
+            IDAOGeneral daop = FactoryMethod.create(FactoryMethod.TypeDAO.PERSONA);
+            Persona p = new Persona();
         
-        IDAOGeneral daop = FactoryMethod.create(FactoryMethod.TypeDAO.PERSONA);
-        Persona p = new Persona();
+            p.setClave(clave.getText());
+            p.setNombre(nombre.getText());
+            p.setDireccion(direccion.getText());
+            p.setTelefono(telefono.getText());
+            p.setDepartamento(departamento.getText());
         
-        p.setClave(clave.getText());
-        p.setNombre(nombre.getText());
-        p.setDireccion(direccion.getText());
-        p.setTelefono(telefono.getText());
-        p.setDepartamento(departamento.getText());
-        
-        
-        daop.guardar(p);
-        
+            if (daop.guardar(p)) {
+                JOptionPane.showMessageDialog(null, p.getClave()+" Agregado Correctament");
+            }else{
+                JOptionPane.showMessageDialog(null, "No fue posible Agregar "+p.getClave());
+            }
+        }
     }//GEN-LAST:event_btoGuardarActionPerformed
 
     private void btoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoEliminarActionPerformed
-        // TODO add your handling code here:
-         IDAOGeneral daop = FactoryMethod.create(FactoryMethod.TypeDAO.PERSONA);
-        Persona p = new Persona();
-        String claveTemp = clave.getText();
+        if (clave.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Clave necesaria");
+        }else{
+            IDAOGeneral daop = FactoryMethod.create(FactoryMethod.TypeDAO.PERSONA);
+            Persona p = new Persona();
+            String claveTemp = clave.getText();
         
-        p.setClave(claveTemp);
-        
-    
-        
-        
-        
-        daop.borrar(p);
-        
-        
+            p.setClave(claveTemp);
+            daop.borrar(p);
+        }
     }//GEN-LAST:event_btoEliminarActionPerformed
 
     private void btoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoModificarActionPerformed
