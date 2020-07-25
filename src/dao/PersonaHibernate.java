@@ -14,8 +14,8 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
     private ConexionDB con;
 
     public PersonaHibernate() {
-        session = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("--- Conectado ---");
+//        session = HibernateUtil.getSessionFactory().openSession();
+//        System.out.println("--- Conectado ---");
     }
 
     @Override
@@ -23,10 +23,22 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
         boolean centinela = false;
 
         try {
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            System.out.println("--- Conectado ---");
+
             session.beginTransaction();
+
+            System.out.println("--- Eliminando ---");
+
             session.delete(pojo);
+
             session.getTransaction().commit();
+
             centinela = true;
+            session.close();
+
+            System.out.println("--- Eliminado ---");
         } catch (Exception e) {
             System.out.println("La puta madre, no funciono, we" + e.getMessage());
         }
@@ -40,6 +52,10 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
         boolean res = false;
 
         try {
+
+            session = HibernateUtil.getSessionFactory().openSession();
+            System.out.println("--- Conectado ---");
+
             session.beginTransaction();
 
             System.out.println("--- Transacción iniciada ---");
@@ -65,10 +81,29 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
     public boolean actualizar(Persona pojo) {
         boolean res = false;
 
-        String sql = "update personas set nombre = '" + pojo.getNombre() + "','" + "direccion = '" + pojo.getDireccion()
-                + "','" + "telefono = '" + pojo.getTelefono() + "','" + "departamento = '" + pojo.getDepartamento() + "','"
-                + "where clave = " + pojo.getClave();
-        res = con.execute(sql);
+        try {
+            
+            session = HibernateUtil.getSessionFactory().openSession();
+            System.out.println("--- Conectado ---");
+
+            session.beginTransaction();
+
+            System.out.println("--- Actualizando ---");
+
+            session.update(pojo);
+
+            session.getTransaction().commit();
+
+            res = true;
+            
+            System.out.println("--- Actualizado ---");
+        } catch (ConstraintViolationException cve) {
+
+            session.getTransaction().rollback();
+            System.out.println("No se ha podido finalizar la transacción");
+            return res;
+
+        }
 
         return res;
     }

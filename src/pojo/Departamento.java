@@ -1,12 +1,23 @@
 package pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "departamentos")
 public class Departamento {
-   
+
+    @Column
     private String nombre;
-   
+
+    @Id
+    @Column
     private String clave;
-    
-    private double precio;
+
+    @Column
+    private String precio;
 
     public String getNombre() {
         return nombre;
@@ -24,14 +35,12 @@ public class Departamento {
         this.clave = clave;
     }
 
-    public double getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
-    
-    
 
 }

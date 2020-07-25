@@ -1,20 +1,24 @@
 package interfaz;
 
+import dao.IDAOGeneral;
+import factorymetod.FactoryMethod;
+import javax.swing.JOptionPane;
+import pojo.Departamento;
+
 public class DepartamentosGUI extends javax.swing.JInternalFrame {
-    
+
     private static DepartamentosGUI dep = null;
-    
-    public static DepartamentosGUI getInstance(){
+
+    public static DepartamentosGUI getInstance() {
         if (dep == null) {
             dep = new DepartamentosGUI();
         }
         return dep;
     }
-    
+
     public DepartamentosGUI() {
         initComponents();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -60,6 +64,11 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
         btoModificar.setFocusable(false);
         btoModificar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btoModificar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btoModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btoModificarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btoModificar);
 
         btoEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/basura.png"))); // NOI18N
@@ -67,6 +76,11 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
         btoEliminar.setFocusable(false);
         btoEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btoEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btoEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btoEliminarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btoEliminar);
 
         texto.setColumns(20);
@@ -135,7 +149,50 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
 
     private void btoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoGuardarActionPerformed
 
+        if (clave.getText().isEmpty() || nombre.getText().isEmpty() || precio.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorio");
+
+        } else {
+
+            IDAOGeneral daod = FactoryMethod.create(FactoryMethod.TypeDAO.DEPARTAMENTO);
+            Departamento d = new Departamento();
+
+            d.setClave(clave.getText());
+            d.setNombre(nombre.getText());
+            d.setPrecio(precio.getText());
+
+            if (daod.guardar(d)) {
+                JOptionPane.showMessageDialog(null, d.getClave() + " Agregado Correctamente ");
+            } else {
+                JOptionPane.showMessageDialog(null, "No fue posible Agregar " + d.getClave());
+            }
+
+        }
+
     }//GEN-LAST:event_btoGuardarActionPerformed
+
+    private void btoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoEliminarActionPerformed
+
+        if (clave.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Clave necesaria");
+
+        } else {
+
+            IDAOGeneral daod = FactoryMethod.create(FactoryMethod.TypeDAO.PERSONA);
+            Departamento d = new Departamento();
+            String claveTemp = clave.getText();
+
+            d.setClave(claveTemp);
+            daod.borrar(d);
+        }
+
+    }//GEN-LAST:event_btoEliminarActionPerformed
+
+    private void btoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoModificarActionPerformed
+        
+    }//GEN-LAST:event_btoModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

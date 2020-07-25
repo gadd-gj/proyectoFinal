@@ -21,8 +21,8 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
     private ConexionDB con;
 
     public DepartamentoDAO() {
-        session = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("--- Conectado ---");
+//        session = HibernateUtil.getSessionFactory().openSession();
+//        System.out.println("--- Conectado ---");
     }
 
     @Override
@@ -31,6 +31,10 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
         boolean res = false;
 
         try {
+            
+            session = HibernateUtil.getSessionFactory().openSession();
+            System.out.println("--- Conectado ---");
+
             session.beginTransaction();
 
             System.out.println("--- Transacción iniciada ---");
@@ -53,14 +57,22 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
 
     @Override
     public boolean borrar(Departamento pojo) {
+
         boolean centinela = false;
+
+        session = HibernateUtil.getSessionFactory().openSession();
+        System.out.println("--- Conectado ---");
 
         try {
 
             session.beginTransaction();
+            System.out.println("--- Eliminando ---");
+
             session.delete(pojo);
             session.getTransaction().commit();
+
             centinela = true;
+            System.out.println("Eliminado");
 
         } catch (Exception e) {
 
@@ -73,11 +85,30 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
 
     @Override
     public boolean actualizar(Departamento pojo) {
+
         boolean res = false;
 
-        String sql = "update personas set nombre='" + pojo.getNombre() + "','" + "precio = '" + pojo.getPrecio() + "'"
-                + "where clave = " + pojo.getClave();
-        res = con.execute(sql);
+        session = HibernateUtil.getSessionFactory().openSession();
+        System.out.println("--- Conectado ---");
+
+        try {
+            session.beginTransaction();
+
+            System.out.println("--- Actualizando ---");
+
+            session.update(pojo);
+            session.getTransaction().commit();
+
+            res = true;
+
+            System.out.println("--- Actualizado ---");
+        } catch (ConstraintViolationException cve) {
+
+            session.getTransaction().rollback();
+            System.out.println("No se ha podido finalizar la transacción");
+            return res;
+
+        }
         return res;
     }
 }
