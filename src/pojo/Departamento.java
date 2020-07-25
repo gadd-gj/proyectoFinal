@@ -5,6 +5,8 @@ public class Departamento {
     private String nombre;
    
     private String clave;
+    
+    private double precio;
 
     public String getNombre() {
         return nombre;
@@ -21,5 +23,15 @@ public class Departamento {
     public void setClave(String clave) {
         this.clave = clave;
     }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
+    
 
 }
