@@ -22,8 +22,8 @@ public class ConexionDB {
     protected ResultSet rs;
     private final String jdbc_drive = "org.postgresql.Driver";
     private final String db_url = "jdbc:postgresql://127.0.0.1:5432/patrones";
-    private final String user = "sonar";
-    private final String pass = "123";
+    private final String user = "postgres";
+    private final String pass = "ajxy2381";
     
     private ConexionDB(){
         try {
