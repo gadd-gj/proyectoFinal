@@ -1,9 +1,11 @@
 package interfaz;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
-
     
+    PersonasGUI per = PersonasGUI.getInstance();
+    Departamentos dep = Departamentos.getInstance();
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
@@ -22,7 +24,8 @@ public class Principal extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         resgistro2 = new javax.swing.JMenu();
-        menu1 = new javax.swing.JMenuItem();
+        user = new javax.swing.JMenuItem();
+        depa = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         salir = new javax.swing.JMenuItem();
 
@@ -44,13 +47,21 @@ public class Principal extends javax.swing.JFrame {
 
         resgistro2.setText("Menú");
 
-        menu1.setText("Usuario");
-        menu1.addActionListener(new java.awt.event.ActionListener() {
+        user.setText("Usuario");
+        user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu1ActionPerformed(evt);
+                userActionPerformed(evt);
             }
         });
-        resgistro2.add(menu1);
+        resgistro2.add(user);
+
+        depa.setText("Departamento");
+        depa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                depaActionPerformed(evt);
+            }
+        });
+        resgistro2.add(depa);
 
         jMenuBar1.add(resgistro2);
 
@@ -86,8 +97,8 @@ public class Principal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_salirActionPerformed
 
-    private void menu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu1ActionPerformed
-        PersonasGUI per = PersonasGUI.getInstance();
+    private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
+        
         per.setVisible(true);
 
         for(Component com: escritorio.getComponents()){
@@ -95,7 +106,21 @@ public class Principal extends javax.swing.JFrame {
                 return;
         }
         escritorio.add(per);
-    }//GEN-LAST:event_menu1ActionPerformed
+        escritorio.remove(dep);
+    }//GEN-LAST:event_userActionPerformed
+
+    private void depaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depaActionPerformed
+        
+        dep.setVisible(true);
+        for(Component com: escritorio.getComponents()){
+            if (com.equals(dep)) {
+                return;
+            }
+        }
+        
+        escritorio.add(dep);
+        escritorio.remove(per);
+    }//GEN-LAST:event_depaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,6 +173,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem depa;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JMenu jMenu2;
@@ -155,8 +181,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
-    private javax.swing.JMenuItem menu1;
     private javax.swing.JMenu resgistro2;
     private javax.swing.JMenuItem salir;
+    private javax.swing.JMenuItem user;
     // End of variables declaration//GEN-END:variables
 }
