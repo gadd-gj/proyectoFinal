@@ -2,6 +2,7 @@ package interfaz;
 
 import dao.IDAOGeneral;
 import factorymetod.FactoryMethod;
+import java.util.List;
 import javax.swing.JOptionPane;
 import pojo.Departamento;
 
@@ -25,7 +26,6 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        btoNuevo = new javax.swing.JButton();
         btoGuardar = new javax.swing.JButton();
         btoModificar = new javax.swing.JButton();
         btoEliminar = new javax.swing.JButton();
@@ -39,13 +39,6 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
         precio = new javax.swing.JTextField();
 
         jToolBar1.setRollover(true);
-
-        btoNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nuevo.png"))); // NOI18N
-        btoNuevo.setToolTipText("Nuevo");
-        btoNuevo.setFocusable(false);
-        btoNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btoNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btoNuevo);
 
         btoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/salvar.png"))); // NOI18N
         btoGuardar.setToolTipText("Guardar");
@@ -163,14 +156,41 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
             d.setPrecio(precio.getText());
 
             if (daod.guardar(d)) {
-                JOptionPane.showMessageDialog(null, d.getClave() + " Agregado Correctamente ");
+                texto.append("Se ha guardado: " + 
+                        "\nClave: " + d.getClave() + 
+                        "\nNombre: " + d.getNombre() + 
+                        "\nPrecio: " + d.getPrecio());
             } else {
-                JOptionPane.showMessageDialog(null, "No fue posible Agregar " + d.getClave());
+                texto.append("No se han podido guardar los datos\n");
             }
 
         }
 
     }//GEN-LAST:event_btoGuardarActionPerformed
+
+    private void btoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoModificarActionPerformed
+
+        if (clave.getText().isEmpty() || nombre.getText().isEmpty() || precio.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorio");
+
+        } else {
+
+            IDAOGeneral daod = FactoryMethod.create(FactoryMethod.TypeDAO.DEPARTAMENTO);
+            Departamento d = new Departamento();
+
+            d.setClave(clave.getText());
+            d.setNombre(nombre.getText());
+            d.setPrecio(precio.getText());
+
+            if (daod.actualizar(d)) {
+                JOptionPane.showMessageDialog(null, d.getClave() + " Actualizado Correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No fue posible actualizar los datos " + d.getClave());
+            }
+        }
+
+    }//GEN-LAST:event_btoModificarActionPerformed
 
     private void btoEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoEliminarActionPerformed
 
@@ -187,19 +207,13 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
             d.setClave(claveTemp);
             daod.borrar(d);
         }
-
     }//GEN-LAST:event_btoEliminarActionPerformed
-
-    private void btoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btoModificarActionPerformed
-        
-    }//GEN-LAST:event_btoModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btoEliminar;
     private javax.swing.JButton btoGuardar;
     private javax.swing.JButton btoModificar;
-    private javax.swing.JButton btoNuevo;
     private javax.swing.JTextField clave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -30,7 +30,6 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        btoNuevo = new javax.swing.JButton();
         btoGuardar = new javax.swing.JButton();
         btoModificar = new javax.swing.JButton();
         btoEliminar = new javax.swing.JButton();
@@ -48,13 +47,6 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
         texto = new javax.swing.JTextArea();
 
         jToolBar1.setRollover(true);
-
-        btoNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nuevo.png"))); // NOI18N
-        btoNuevo.setToolTipText("Nuevo");
-        btoNuevo.setFocusable(false);
-        btoNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btoNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btoNuevo);
 
         btoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/salvar.png"))); // NOI18N
         btoGuardar.setToolTipText("Guardar");
@@ -249,7 +241,6 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
     private javax.swing.JButton btoEliminar;
     private javax.swing.JButton btoGuardar;
     private javax.swing.JButton btoModificar;
-    private javax.swing.JButton btoNuevo;
     private javax.swing.JTextField clave;
     private javax.swing.JTextField departamento;
     private javax.swing.JTextField direccion;

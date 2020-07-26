@@ -23,7 +23,7 @@ public class ConexionDB {
     private final String jdbc_drive = "org.postgresql.Driver";
     private final String db_url = "jdbc:postgresql://127.0.0.1:5432/Patrones";
     private final String user = "sonar";
-    private final String pass = "gustavo18";
+    private final String pass = "123";
     
     private ConexionDB(){
         try {

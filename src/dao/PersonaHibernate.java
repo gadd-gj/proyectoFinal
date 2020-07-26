@@ -83,7 +83,7 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
         boolean res = false;
 
         try {
-            
+
             session = HibernateUtil.getSessionFactory().openSession();
             System.out.println("--- Conectado ---");
 
@@ -96,7 +96,7 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
             session.getTransaction().commit();
 
             res = true;
-            
+
             System.out.println("--- Actualizado ---");
         } catch (ConstraintViolationException cve) {
 
@@ -107,12 +107,7 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
         }
 
         return res;
-        
-    }
 
-    @Override
-    public List bucar(String clave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

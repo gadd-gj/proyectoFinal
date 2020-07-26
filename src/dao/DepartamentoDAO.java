@@ -109,8 +109,5 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
         
     }
 
-    @Override
-    public List bucar(String clave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 }
