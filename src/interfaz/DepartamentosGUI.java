@@ -184,9 +184,9 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
             d.setPrecio(precio.getText());
 
             if (daod.actualizar(d)) {
-                JOptionPane.showMessageDialog(null, d.getClave() + " Actualizado Correctamente");
+                texto.append("Los datos se han actualizado correctamente\n");
             } else {
-                JOptionPane.showMessageDialog(null, "No fue posible actualizar los datos " + d.getClave());
+                texto.append("Algo salio mal");
             }
         }
 
@@ -205,7 +205,13 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
             String claveTemp = clave.getText();
 
             d.setClave(claveTemp);
-            daod.borrar(d);
+            boolean res = daod.borrar(d);
+            if (res) {
+                texto.append("Se ha eliminado correctamente\n");
+            } else {
+                texto.append("Algo ha salido mal");
+            }
+            
         }
     }//GEN-LAST:event_btoEliminarActionPerformed
 

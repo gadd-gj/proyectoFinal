@@ -191,9 +191,14 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
             p.setDepartamento(departamento.getText());
 
             if (daop.guardar(p)) {
-                JOptionPane.showMessageDialog(null, p.getClave() + " Agregado Correctament");
+                 texto.append("Se ha guardado: " + 
+                        "\nClave: " + p.getClave() + 
+                        "\nNombre: " + p.getNombre() + 
+                        "\nDireccion: " + p.getDireccion() + 
+                         "Telefono: " + p.getTelefono() + 
+                         "Departamento: " + p.getDepartamento());
             } else {
-                JOptionPane.showMessageDialog(null, "No fue posible Agregar " + p.getClave());
+                texto.append("No se han podido guardar los datos\n");
             }
         }
     }//GEN-LAST:event_btoGuardarActionPerformed
@@ -207,7 +212,12 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
             String claveTemp = clave.getText();
 
             p.setClave(claveTemp);
-            daop.borrar(p);
+            boolean res = daop.borrar(p);
+            if (res) {
+                texto.append("Se ha eliminado correctamente\n");
+            } else {
+                texto.append("algo salio mal\n");
+            }
         }
     }//GEN-LAST:event_btoEliminarActionPerformed
 
@@ -226,9 +236,9 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
             p.setDepartamento(departamento.getText());
 
             if (daop.actualizar(p)) {
-                JOptionPane.showMessageDialog(null, p.getClave() + " Actualizado Correctamente");
+                texto.append("Los datos se han actualizado correctamente\n");
             } else {
-                JOptionPane.showMessageDialog(null, "No fue posible actualizar los datos " + p.getClave());
+                texto.append("No se han podido actualizar los datos\n");
             }
             
             
