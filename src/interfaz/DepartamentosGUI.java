@@ -2,7 +2,6 @@ package interfaz;
 
 import dao.IDAOGeneral;
 import factorymetod.FactoryMethod;
-import java.util.List;
 import javax.swing.JOptionPane;
 import pojo.Departamento;
 

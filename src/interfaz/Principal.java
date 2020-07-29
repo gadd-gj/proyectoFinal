@@ -1,6 +1,5 @@
 package interfaz;
 import java.awt.Component;
-import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
     

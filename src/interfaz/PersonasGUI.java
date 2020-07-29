@@ -2,11 +2,13 @@ package interfaz;
 
 import dao.IDAOGeneral;
 import factorymetod.FactoryMethod;
+import java.util.List;
 import javax.swing.JOptionPane;
 import pojo.Persona;
 
-public class PersonasGUI extends javax.swing.JInternalFrame {
 
+public class PersonasGUI extends javax.swing.JInternalFrame {
+    
     private static PersonasGUI per = null;
 
     public static PersonasGUI getInstance() {
@@ -33,6 +35,7 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
         btoGuardar = new javax.swing.JButton();
         btoModificar = new javax.swing.JButton();
         btoEliminar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         clave = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
         telefono = new javax.swing.JTextField();
@@ -83,6 +86,18 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
             }
         });
         jToolBar1.add(btoEliminar);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/buscar.png"))); // NOI18N
+        jButton1.setToolTipText("Buscar");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
 
         jLabel1.setText("Clave");
 
@@ -236,15 +251,26 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
             p.setDepartamento(departamento.getText());
 
             if (daop.actualizar(p)) {
-                texto.append("Los datos se han actualizado correctamente\n");
+                JOptionPane.showMessageDialog(null, "Los datos se han actualizado correctamente");
             } else {
-                texto.append("No se han podido actualizar los datos\n");
+                JOptionPane.showMessageDialog(null, "No se han podido actualizar los datos");
             }
             
             
         }
 
     }//GEN-LAST:event_btoModificarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        IDAOGeneral daop = FactoryMethod.create(FactoryMethod.TypeDAO.PERSONA);
+        try {
+            List<Persona> list = daop.mostrar(clave.getText());
+            JOptionPane.showMessageDialog(null, "tamaño lista: "+list.size());
+        } catch (Exception e) {
+            System.out.println("Error: "+e.getMessage());
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -254,6 +280,7 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
     private javax.swing.JTextField clave;
     private javax.swing.JTextField departamento;
     private javax.swing.JTextField direccion;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -7,10 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 import pojo.Departamento;
 
-/**
- *
- * @author gaddiel
- */
 public class DepartamentoDAO implements IDAOGeneral<Departamento> {
 
     private Session session;
@@ -107,6 +103,11 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
         }
         return res;
         
+    }
+
+    @Override
+    public List mostrar(String clave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
    

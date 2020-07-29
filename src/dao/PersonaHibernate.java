@@ -3,9 +3,10 @@ package dao;
 import conexiondb.ConexionDB;
 import interfaz.HibernateUtil;
 import java.util.List;
-import javax.swing.JOptionPane;
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.exception.ConstraintViolationException;
 import pojo.Persona;
 
@@ -108,6 +109,27 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
 
         return res;
 
+    }
+
+    @Override
+    public List mostrar(String clave) {
+        List<Persona> list = null;
+        try {
+            SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+
+            Query query = session.createQuery("SELECT nombre FROM pojo.Persona WHERE clave = :id");
+            query.setParameter("id", clave);
+            list = query.list();
+
+            session.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage()); 
+        }
+        
+        return list;
     }
 
 }

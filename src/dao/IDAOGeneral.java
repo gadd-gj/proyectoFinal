@@ -10,7 +10,6 @@ public interface IDAOGeneral<T> {
 
     public boolean actualizar(T pojo);
     
-    
-    
+    public List mostrar(String clave);
     
 }
