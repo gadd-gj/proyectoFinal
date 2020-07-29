@@ -2,8 +2,10 @@ package interfaz;
 
 import dao.IDAOGeneral;
 import factorymetod.FactoryMethod;
+import java.util.List;
 import javax.swing.JOptionPane;
 import pojo.Departamento;
+import pojo.Persona;
 
 public class DepartamentosGUI extends javax.swing.JInternalFrame {
 
@@ -28,6 +30,7 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
         btoGuardar = new javax.swing.JButton();
         btoModificar = new javax.swing.JButton();
         btoEliminar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         texto = new javax.swing.JTextArea();
         clave = new javax.swing.JTextField();
@@ -74,6 +77,18 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
             }
         });
         jToolBar1.add(btoEliminar);
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/buscar.png"))); // NOI18N
+        btnBuscar.setToolTipText("Buscar");
+        btnBuscar.setFocusable(false);
+        btnBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBuscar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnBuscar);
 
         texto.setColumns(20);
         texto.setRows(5);
@@ -158,11 +173,13 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
                 texto.append("Se ha guardado: " + 
                         "\nClave: " + d.getClave() + 
                         "\nNombre: " + d.getNombre() + 
-                        "\nPrecio: " + d.getPrecio());
+                        "\nPrecio: " + d.getPrecio()+"\n");
             } else {
-                texto.append("No se han podido guardar los datos\n");
+                JOptionPane.showMessageDialog(null,"No se han podido guardar los datos\n");
             }
-
+            clave.setText("");
+            nombre.setText("");
+            precio.setText("");
         }
 
     }//GEN-LAST:event_btoGuardarActionPerformed
@@ -183,9 +200,9 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
             d.setPrecio(precio.getText());
 
             if (daod.actualizar(d)) {
-                texto.append("Los datos se han actualizado correctamente\n");
+                JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente\n");
             } else {
-                texto.append("Algo salio mal");
+                JOptionPane.showMessageDialog(null, "algo salio mal\n");
             }
         }
 
@@ -206,16 +223,35 @@ public class DepartamentosGUI extends javax.swing.JInternalFrame {
             d.setClave(claveTemp);
             boolean res = daod.borrar(d);
             if (res) {
-                texto.append("Se ha eliminado correctamente\n");
+                JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente\n");
             } else {
-                texto.append("Algo ha salido mal");
+                JOptionPane.showMessageDialog(null, "algo salio mal\n");
             }
             
         }
     }//GEN-LAST:event_btoEliminarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        IDAOGeneral daop = FactoryMethod.create(FactoryMethod.TypeDAO.DEPARTAMENTO);
+        if (clave.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Clave necesaria");
+        } else {
+            texto.setText("");
+            String dato="";
+            List<Departamento> list = daop.mostrar(clave.getText());
+            for (Departamento dep : list) {
+                dato +="Nombre: "+dep.getNombre()+"\n";
+                dato +="Dirección: "+dep.getPrecio()+"\n";
+                dato +="\n";
+                texto.append(dato);
+            }
+            clave.setText("");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnBuscar;
     private javax.swing.JButton btoEliminar;
     private javax.swing.JButton btoGuardar;
     private javax.swing.JButton btoModificar;

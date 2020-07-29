@@ -3,9 +3,13 @@ package dao;
 import conexiondb.ConexionDB;
 import interfaz.HibernateUtil;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.exception.ConstraintViolationException;
 import pojo.Departamento;
+import pojo.Persona;
 
 public class DepartamentoDAO implements IDAOGeneral<Departamento> {
 
@@ -107,7 +111,23 @@ public class DepartamentoDAO implements IDAOGeneral<Departamento> {
 
     @Override
     public List mostrar(String clave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Departamento> list = null;
+        try {
+            SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+
+            Query query = session.createQuery("FROM pojo.Departamento WHERE clave = :id");
+            query.setParameter("id", clave);
+            list = query.list();
+
+            session.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage()); 
+        }
+        
+        return list;
     }
 
    

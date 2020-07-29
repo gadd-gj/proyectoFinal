@@ -119,7 +119,7 @@ public class PersonaHibernate implements IDAOGeneral<Persona> {
             session = sessionFactory.openSession();
             session.beginTransaction();
 
-            Query query = session.createQuery("SELECT nombre FROM pojo.Persona WHERE clave = :id");
+            Query query = session.createQuery("FROM pojo.Persona WHERE clave = :id");
             query.setParameter("id", clave);
             list = query.list();
 

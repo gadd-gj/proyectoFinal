@@ -35,7 +35,7 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
         btoGuardar = new javax.swing.JButton();
         btoModificar = new javax.swing.JButton();
         btoEliminar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         clave = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
         telefono = new javax.swing.JTextField();
@@ -87,17 +87,17 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
         });
         jToolBar1.add(btoEliminar);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/buscar.png"))); // NOI18N
-        jButton1.setToolTipText("Buscar");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/buscar.png"))); // NOI18N
+        btnBuscar.setToolTipText("Buscar");
+        btnBuscar.setFocusable(false);
+        btnBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBuscar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(btnBuscar);
 
         jLabel1.setText("Clave");
 
@@ -213,8 +213,13 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
                          "Telefono: " + p.getTelefono() + 
                          "Departamento: " + p.getDepartamento());
             } else {
-                texto.append("No se han podido guardar los datos\n");
+                JOptionPane.showMessageDialog(null, "No se han podido guardar los datos\n");
             }
+            clave.setText("");
+            nombre.setText("");
+            direccion.setText("");
+            telefono.setText("");
+            departamento.setText("");
         }
     }//GEN-LAST:event_btoGuardarActionPerformed
 
@@ -229,10 +234,11 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
             p.setClave(claveTemp);
             boolean res = daop.borrar(p);
             if (res) {
-                texto.append("Se ha eliminado correctamente\n");
+                JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente\n");
             } else {
-                texto.append("algo salio mal\n");
+                JOptionPane.showMessageDialog(null, "algo salio mal\n");
             }
+            clave.setText("");
         }
     }//GEN-LAST:event_btoEliminarActionPerformed
 
@@ -261,26 +267,36 @@ public class PersonasGUI extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btoModificarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         IDAOGeneral daop = FactoryMethod.create(FactoryMethod.TypeDAO.PERSONA);
-        try {
+        if (clave.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Clave necesaria");
+        } else {
+            texto.setText("");
+            String dato="";
             List<Persona> list = daop.mostrar(clave.getText());
-            JOptionPane.showMessageDialog(null, "tamaño lista: "+list.size());
-        } catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
+            for (Persona per : list) {
+                dato +="Nombre: "+per.getNombre()+"\n";
+                dato +="Dirección: "+per.getDireccion()+"\n";
+                dato +="Télefono: "+per.getTelefono()+"\n";
+                dato +="Departamento: "+per.getDepartamento()+"\n";
+                dato +="\n";
+                texto.append(dato);
+            }
+            clave.setText("");
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btoEliminar;
     private javax.swing.JButton btoGuardar;
     private javax.swing.JButton btoModificar;
     private javax.swing.JTextField clave;
     private javax.swing.JTextField departamento;
     private javax.swing.JTextField direccion;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
